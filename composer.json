@@ -1,0 +1,12 @@
+{
+    "name": "sixpaths/accuweather",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Jack O'Hara",
+            "email": "jack.ohara@sixpaths.co.uk"
+        }
+    ],
+    "require": {}
+}

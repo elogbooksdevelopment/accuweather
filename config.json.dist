@@ -1,0 +1,10 @@
+{
+    "password": null,
+    "apiKey": null,
+
+    "cache": "redis",
+
+    "redisHost": "127.0.0.1",
+    "redisPort": 6379,
+    "redisPassword": null
+}
