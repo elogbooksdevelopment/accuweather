@@ -20,9 +20,9 @@ RUN rm -f /etc/nginx/sites-enabled/* \
 COPY accuweather.nginx /etc/nginx/sites-available/accuweather.nginx
 RUN ln -s /etc/nginx/sites-available/accuweather.nginx /etc/nginx/sites-enabled/accuweather.nginx
 RUN mkdir -p /var/www && rm -rf /var/www/*
-RUN git clone https://github.com/six-paths/accuweather /var/www
+COPY ./ /var/www/
 RUN cp /var/www/config.json.dist /var/www/config.json
-RUN chmod 664 /var/www/*
+RUN chmod -R 665 /var/www/*
 COPY startup.sh /root/startup.sh
 
 ENTRYPOINT bash /root/startup.sh && tail -f -n 10 /var/log/nginx/error.log

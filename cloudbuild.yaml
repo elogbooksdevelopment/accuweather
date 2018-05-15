@@ -1,0 +1,15 @@
+steps:
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'gcr.io/$PROJECT_ID/$REPO_NAME:$COMMIT_SHA', '.']
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/$PROJECT_ID/$REPO_NAME']
+  - name: 'gcr.io/cloud-builders/kubectl'
+    args:
+      - set
+      - image
+      - deployment
+      - ${__DEPLOYMENT_NAME__}
+      - ${__CONTAINER_NAME__}=gcr.io/$PROJECT_ID/$REPO_NAME:$COMMIT_SHA
+    env:
+      - 'CLOUDSDK_COMPUTE_ZONE=${__CLOUDSDK_COMPUTE_ZONE__}'
+      - 'CLOUDSDK_CONTAINER_CLUSTER=${__CLOUDSDK_CONTAINER_CLUSTER__}'

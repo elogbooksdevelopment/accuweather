@@ -7,8 +7,13 @@ to allow further restrictions, such as HTTP Origin, to be added at the server si
 
 ```
 server {
+    # Use this for deployments
+    listen 80 default_server;
+
+    # Use this for local development
     server_name accuweather.local;
-    root /var/www/Sixpaths/accuweather/;
+
+    root /var/www/Sixpaths/accuweather/public/;
     index app.php =404;
 
     location @rewrite {

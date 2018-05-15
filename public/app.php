@@ -1,6 +1,6 @@
 <?php
 
-require_once 'Accuweather.php';
+require_once __DIR__ . '/../src/Accuweather.php';
 
 $password = null;
 switch (true) {

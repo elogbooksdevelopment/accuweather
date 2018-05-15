@@ -37,7 +37,7 @@ class Accuweather
 
     private function getConfig(): void
     {
-        $this->config = json_decode(file_get_contents('config.json'));
+        $this->config = json_decode(file_get_contents(__DIR__ . '/../config.json'));
 
         foreach ($this->config as $key => $value) {
             $slug = preg_replace("/([A-Z])/", "_$1", $key);

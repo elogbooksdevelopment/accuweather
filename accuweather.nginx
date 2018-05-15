@@ -1,5 +1,6 @@
 server {
-    root /var/www;
+    listen 80 default_server;
+    root /var/www/public;
     index app.php =404;
 
     location @rewrite {
