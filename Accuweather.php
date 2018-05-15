@@ -38,6 +38,14 @@ class Accuweather
     private function getConfig(): void
     {
         $this->config = json_decode(file_get_contents('config.json'));
+
+        foreach ($this->config as $key => $value) {
+            $slug = preg_replace("/([A-Z])/", "_$1", $key);
+
+            if (($environmentVariable = getenv('ACCUWEATHER_' . strtoupper($slug))) !== false) {
+                $this->config->$key = $environmentVariable;
+            }
+        }
     }
 
     private function setApiKey(): void
