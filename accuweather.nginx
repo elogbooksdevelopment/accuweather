@@ -1,0 +1,32 @@
+server {
+    root /var/www;
+    index app.php =404;
+
+    location @rewrite {
+        rewrite ^(.*)$ /app.php/$1 last;
+    }
+
+    location / {
+        add_header Access-Control-Allow-Origin "$http_origin" always;
+        add_header Access-Control-Allow-Methods "OPTIONS, GET";
+        add_header Access-Control-Allow-Headers "Origin,X-Password,Authorization" always;
+        add_header Access-Control-Allow-Credentials "true" always;
+
+        try_files $uri @rewrite;
+    }
+
+    location ~ ^/app\.php(/|$) {
+        include fastcgi_params;
+
+        add_header Access-Control-Allow-Origin "$http_origin" always;
+        add_header Access-Control-Allow-Methods "OPTIONS, GET";
+        add_header Access-Control-Allow-Headers "Origin,X-Password,Authorization" always;
+        add_header Access-Control-Allow-Credentials "true" always;
+
+        fastcgi_pass unix:/var/run/php/php7.2-fpm.sock;
+        fastcgi_split_path_info ^(.+\.php)(/.*)$;
+
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        fastcgi_read_timeout 5;
+    }
+}
