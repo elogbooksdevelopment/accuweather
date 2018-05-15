@@ -15,9 +15,6 @@ RUN apt-get install -y \
         php7.2-fpm \
         git \
         wget
-RUN php -r "copy('https://getcomposer.org/installer', 'installer');" \
-    && php installer --quiet --install-dir=/bin --filename=composer \
-    && rm installer
 RUN rm -f /etc/nginx/sites-enabled/* \
     && rm -f /etc/nginx/sites-available/*
 COPY accuweather.nginx /etc/nginx/sites-available/accuweather.nginx
@@ -25,7 +22,7 @@ RUN ln -s /etc/nginx/sites-available/accuweather.nginx /etc/nginx/sites-enabled/
 RUN mkdir -p /var/www && rm -rf /var/www/*
 RUN git clone https://github.com/six-paths/accuweather /var/www
 RUN cp /var/www/config.json.dist /var/www/config.json
-RUN chmod 660 /var/www/*
-RUN chmod 664 /var/www/app.php
+RUN chmod 664 /var/www/*
+COPY startup.sh /root/startup.sh
 
-ENTRYPOINT tail -f -n 10 /var/log/nginx/error.log
+ENTRYPOINT bash /root/startup.sh && tail -f -n 10 /var/log/nginx/error.log
