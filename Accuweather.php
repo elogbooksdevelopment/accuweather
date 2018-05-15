@@ -134,11 +134,11 @@ class Accuweather
         return $this->cache->get($key);
     }
 
-    public static function exceptionHandler(\Exception $exception = null): void
+    public static function exceptionHandler(\Throwable $throwable = null): void
     {
         self::processResponse([
-            'code' => $exception->getCode(),
-            'message' => $exception->getMessage(),
+            'code' => $throwable->getCode(),
+            'message' => $throwable->getMessage(),
         ]);
     }
 }
