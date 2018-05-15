@@ -28,3 +28,4 @@ RUN cp /var/www/config.json.dist /var/www/config.json
 RUN chmod 660 /var/www/*
 RUN chmod 664 /var/www/app.php
 
+ENTRYPOINT tail -f -n 10 /var/log/nginx/error.log
